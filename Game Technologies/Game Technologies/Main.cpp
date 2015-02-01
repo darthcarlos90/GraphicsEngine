@@ -1,7 +1,7 @@
 /******************************************************************************
 Class:
 Implements:
-Author:Rich Davison	<richard.davison4@newcastle.ac.uk> and YOU!
+Author:Rich Davison	<richard.davison4@newcastle.ac.uk> and Carlos Tirado!
 Description: We have a revised 'main' file this time around. The old main file
 was sometimes quite hard to debug when classes failed to initialise, so I 
 have made a dedicated 'Quit' function, which will destroy everything, and 
@@ -59,7 +59,8 @@ void run(MyGame *g){
 
 
 int main() {
-	if(!Window::Initialise("Game Technologies", 1280,800,false)) {
+	//Change to 1280, 800 to fit a bigger screen
+	if(!Window::Initialise("Game Technologies", 800,600,false)) {
 		return Quit(true, "Window failed to initialise!");
 	}
 
@@ -69,7 +70,7 @@ int main() {
 
 	PhysicsSystem::Initialise();
 
-	MyGame* game = new MyGame();
+	MyGame* game = new MyGame(true);
 
 	Window::GetWindow().LockMouseToWindow(true);
 	Window::GetWindow().ShowOSPointer(false);

@@ -44,7 +44,7 @@ _-_-_-_-_-_-_-""  ""
 
 class MyGame : public GameClass	{
 public:
-	MyGame();
+	MyGame(bool debugOptions = false);
 	~MyGame(void);
 
 	virtual void UpdateGame(float msec);
@@ -72,6 +72,12 @@ protected:
 	GameEntity* BuildGreanade(Vector3 position, Vector3 force);
 	//creates the spring
 	void doSpring();
+
+	//This constructos build the elements in the engine
+	//Debugging only builds the heightmap and the ball shooting
+	void debuggingConstructor();
+	//The "with Everything" means that the tree, targets, scores, and the AI is also included
+	void withEverythingConstructor();
 	
 	//changes the type of weapon
 	void toggleWeapon() { if(current_weapon <1) current_weapon++; else current_weapon = 0; }
@@ -117,6 +123,8 @@ protected:
 	bool waitRespawn;
 	float size_proyectile;
 	float SpeedFactor;
+
+	bool debugging;
 
 };
 

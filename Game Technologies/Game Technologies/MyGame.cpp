@@ -13,44 +13,60 @@ through the floor as gravity is added to the scene.
 You can completely change all of this if you want, it's your game!
 
 */
-MyGame::MyGame()	{
-	gameCamera = new Camera(-30.0f,0.0f,Vector3(0,450,850));
+MyGame::MyGame(bool debugOptions)	{
+	debugging = debugOptions;
 
+	debuggingConstructor();
+	if (!debugging){
+		withEverythingConstructor();
+	}
+
+	
+}
+
+void MyGame::debuggingConstructor(){
+	gameCamera = new Camera(-30.0f, 0.0f, Vector3(0, 450, 850));
 	Renderer::GetRenderer().SetCamera(gameCamera);
-
-	CubeRobot::CreateCube();
-	Tree::CreateCylinder();
-	Branch::CreateCylinder();
 	Sphere::CreateSphere();
 	
-	
-
-	/*
-	We're going to manage the meshes we need in our game in the game class!
-
-	You can do this with textures, too if you want - but you might want to make
-	some sort of 'get / load texture' part of the Renderer or OGLRenderer, so as
-	to encapsulate the API-specific parts of texture loading behind a class so
-	we don't care whether the renderer is OpenGL / Direct3D / using SOIL or 
-	something else...
-	*/
-	cube	= new OBJMesh(MESHDIR"cube.obj");
-	quad	= Mesh::GenerateQuad();
-	sphere	= new OBJMesh(MESHDIR"ico.obj");
+	quad = Mesh::GenerateQuad();
+	sphere = new OBJMesh(MESHDIR"ico.obj");
 	heightMap = new HeightMap(TEXTUREDIR"terrain.raw");
-	tree = NULL;
+
+	allEntities.push_back(BuildHeightMap());
 	meatIndex = -1;
 	meat = 1;
 	greanades = 3;
 	current_weapon = 0;
-	respawnTimer = 0.0f;
-	waitRespawn = false;
+
 	SpeedFactor = 10.0f;
 	size_proyectile = 10.0f;
 
 	Renderer::GetRenderer().setMeatballs(meat);
 	Renderer::GetRenderer().setGreanades(greanades);
 	Renderer::GetRenderer().setCurrent(current_weapon);
+
+}
+
+void MyGame::withEverythingConstructor(){
+	CubeRobot::CreateCube();
+	Tree::CreateCylinder();
+	Branch::CreateCylinder();
+	/*
+	We're going to manage the meshes we need in our game in the game class!
+
+	You can do this with textures, too if you want - but you might want to make
+	some sort of 'get / load texture' part of the Renderer or OGLRenderer, so as
+	to encapsulate the API-specific parts of texture loading behind a class so
+	we don't care whether the renderer is OpenGL / Direct3D / using SOIL or
+	something else...
+	*/
+	cube = new OBJMesh(MESHDIR"cube.obj");
+	tree = NULL;
+	
+	respawnTimer = 0.0f;
+	waitRespawn = false;
+	
 
 	//draw the springs
 	doSpring();
@@ -63,56 +79,62 @@ MyGame::MyGame()	{
 	//create the heightmap and zombies
 	//TODO Add heightmap collision at some point
 	//it is 12/12/2014 8.30 am and there is still no heightmap collision
-	allEntities.push_back(BuildHeightMap());
-
 	//build the zombies
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (0.0f,360.0f,0.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (200.0f,360.0f,-300.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (-400.0f,360.0f,500.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (400.0f,360.0f,-300.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (-200.0f,360.0f,100.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (-680.0f,360.0f,700.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (10.0f,360.0f,900.0f)));
-	allEntities.push_back(BuildZombie(30.0f, Vector3 (487.56f,360.0f,696.0f)));
-	allEntities.push_back(BuildZombie(30.0f,Vector3	(500.0,360,100.0)));
-	
+	allEntities.push_back(BuildZombie(30.0f, Vector3(0.0f, 360.0f, 0.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(200.0f, 360.0f, -300.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(-400.0f, 360.0f, 500.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(400.0f, 360.0f, -300.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(-200.0f, 360.0f, 100.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(-680.0f, 360.0f, 700.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(10.0f, 360.0f, 900.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(487.56f, 360.0f, 696.0f)));
+	allEntities.push_back(BuildZombie(30.0f, Vector3(500.0, 360, 100.0)));
+
 	float radius = 30.0f;
 	Vector3 position(800, 500, -300);
-	for(int i = 0; i < 5; i++){
-		allEntities.push_back(BuildStaticSphere(30.0f, position));
+	for (int i = 0; i < 5; i++){
+		allEntities.push_back(BuildStaticSphere(radius, position));
 		position.x += (radius * 2) + 0.05f;
 	}
 	position = Vector3(800, 500, -300 + (radius * 2.0f));
 	//Build the static spheres
-	for(int i = 0; i < 5; i++){
-		allEntities.push_back(BuildStaticSphere(30.0f, position));
+	for (int i = 0; i < 5; i++){
+		allEntities.push_back(BuildStaticSphere(radius, position));
 		position.x += (radius * 2) + 0.05f;
 	}
+
+
 	//build the stones
 	allEntities.push_back(BuildStone(30.0f, Vector3(170, 360, -630)));
 	allEntities.push_back(BuildStone(30.0f, Vector3(170, 360, 630)));
 	allEntities.push_back(BuildStone(30.0f, Vector3(-170, 360, -630)));
 	allEntities.push_back(BuildStone(30.0f, Vector3(-170, 360, 630)));
-	
+
 	BuildTree();
-	
 }
 
 MyGame::~MyGame(void)	{
+
 	/*
 	We're done with our assets now, so we can delete them
 	*/
-	delete cube;
-	delete quad;
+
 	delete sphere;
-	delete heightMap;
-	//delete tree;
-	CubeRobot::DeleteCube();
-	Tree::DeleteCylinder();
-	Branch::DeleteCylinder();
 	Sphere::DeleteSphere();
 
 	//GameClass destructor will destroy your entities for you...
+	if (!debugging){
+		delete cube;
+		delete quad;
+		
+		delete heightMap;
+		//delete tree;
+		CubeRobot::DeleteCube();
+		Tree::DeleteCylinder();
+		Branch::DeleteCylinder();
+	}
+	
+	
 }
 
 /*
