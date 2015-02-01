@@ -48,6 +48,7 @@ HeightMap::HeightMap(std::string name){
 		}
 	}
 
+	type = GL_LINES;
 	GenerateNormals();//Added on tutorial 11
 
 	GenerateTangents(); //Added on tutorial 12

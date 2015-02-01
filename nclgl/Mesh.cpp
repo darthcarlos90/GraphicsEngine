@@ -14,6 +14,7 @@ Mesh::Mesh(void)	{
 	//Later tutorial stuff
 	numIndices    = 0;
 	bumpTexture	  = 0;
+	numVertices = 0;
 	vertices	  = NULL;
 	textureCoords = NULL;
 	normals		  = NULL;

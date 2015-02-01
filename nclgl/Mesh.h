@@ -69,6 +69,10 @@ public:
 
 	bool	TransformsTexCoords() { return transformCoords;}
 
+	GLuint getNumVertices(){ return numVertices; }
+
+	Vector3 getVertexAt(int index){ return vertices[index]; }
+
 protected:
 	//Buffers all VBO data into graphics memory. Required before drawing!
 	void	BufferData();
@@ -100,6 +104,8 @@ protected:
 
 	//OpenGL texture name for the bump map
 	GLuint			bumpTexture;
+
+	
 
 	//You might wonder why we keep pointers to vertex data once
 	//it's sent off to graphics memory. For basic meshes, there's no

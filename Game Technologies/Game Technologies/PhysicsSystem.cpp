@@ -49,9 +49,9 @@ void	PhysicsSystem::BroadPhaseCollisions() {
 
 	//Uncomment line 52, and change the 200 number to 41 to see how beautifully the octree draws itself :)
 	//the problem is that it doesnt fully work, DAMN MURPHY LAW AT 5 AM
-	root = new OctTreeNode(OCTREE_SIZES, OCTREE_SIZES, OCTREE_SIZES, Vector3(0,0,0),elements,200, 40, 0);
+	root = new OctTreeNode(OCTREE_SIZES, OCTREE_SIZES, OCTREE_SIZES, Vector3(0,0,0),elements,10, 40, 0);
 	root->BuildOctTree();
-	//root->DrawDebugLines();
+	root->DrawDebugLines();
 	onCollision = root->getPairedElements();
 
 	//Uncomment tis lines for a element vs element collision detection, and see that
@@ -81,6 +81,7 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 	}
 	//first handle the plane
 	if(doPlaneCollision){
+		//Get the location of the plane
 		vector<Vector3> points;
 		float location = (257.0f * 16.0f) / 2.0f;
 		points.push_back( Vector3(-location, 0, -location));
@@ -89,10 +90,30 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 		points.push_back(Vector3(-location, 0, location));
 		for(unsigned int i = 0; i < allNodes.size(); i++){
 			if(i != planeLocation){
+				//If the element is inside the plane ....
 				if(PointInConvexPolygon(allNodes[i]->GetPosition(),points, 4)){
 				//if(InsideConcaveShape(points, 4, allNodes[i]->GetPosition())){
 					CollisionData colDat;
+					//and if it is not a tree
 					if(!allNodes[i]->isTree()){
+						//NEW CHANGES!!!!!
+						//First, get the radius of the element.
+						float radius = allNodes[i]->GetCollisionSphere.GetCollisionSphereRadius();
+						Vector3 location = allNodes[i]->GetPosition();
+						//Now, we are going to check which vertices are inside the area created by the radius
+						Mesh hm = *allNodes[planeLocation]->getTarget()->GetMesh();
+						vector <Vector3> insideVertices;
+						for (unsigned int verts = 0; verts < hm.getNumVertices(); verts++){
+							Vector3 temp = hm.getVertexAt(verts);
+							if (temp.x >= location.x - radius || temp.x <= location.x + radius){
+								if (temp.z >= location.z - radius || temp.z <= location.z + radius){
+									insideVertices.push_back(temp);
+								}
+							}
+
+						}
+
+
 						if(CollisionHelper::SpherePlaneCollision(*allNodes[i], *allNodes[planeLocation], &colDat)){
 							if(allNodes[i]->getGreanade()){
 								allNodes[i]->setBroken(true);
