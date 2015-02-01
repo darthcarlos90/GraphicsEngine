@@ -1,0 +1,2 @@
+The cylinder taken from: https://code.google.com/p/morphing-meshes/downloads/detail?name=Cylinder.obj&can=2&q= and then modified in blender.
+The rest of the meshes where created and textured in blender.

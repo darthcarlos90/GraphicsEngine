@@ -1,0 +1,42 @@
+﻿Build started 10/12/2014 22:54:45.
+     1>Project "C:\Users\cmdadmin\Documents\Game Tech 2014\Game Tech 2014\nclgl\nclgl.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CubeRobot.cpp Frustum.cpp MD5Node.cpp SceneNode.cpp
+         SceneNode.cpp
+     1>c:\users\cmdadmin\documents\game tech 2014\game tech 2014\nclgl\scenenode.cpp(76): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\cmdadmin\documents\game tech 2014\game tech 2014\nclgl\scenenode.cpp(83): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Compiling...
+         MD5Node.cpp
+         CubeRobot.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Frustum.cpp
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\cmdadmin\Documents\Game Tech 2014\Game Tech 2014\Game Technologies\Debug\nclgl.lib" /NOLOGO Debug\Camera.obj
+         Debug\CubeRobot.obj
+         Debug\Frustum.obj
+         Debug\GameTimer.obj
+         Debug\HeightMap.obj
+         Debug\Keyboard.obj
+         Debug\Matrix3.obj
+         Debug\Matrix4.obj
+         Debug\MD5Anim.obj
+         Debug\MD5FileData.obj
+         Debug\MD5Mesh.obj
+         Debug\MD5Node.obj
+         Debug\Mesh.obj
+         Debug\Mouse.obj
+         Debug\OBJMesh.obj
+         Debug\OGLRenderer.obj
+         Debug\Plane.obj
+         Debug\Quaternion.obj
+         Debug\SceneNode.obj
+         Debug\Shader.obj
+         Debug\Window.obj
+         nclgl.vcxproj -> C:\Users\cmdadmin\Documents\Game Tech 2014\Game Tech 2014\Game Technologies\Debug\nclgl.lib
+     1>Done Building Project "C:\Users\cmdadmin\Documents\Game Tech 2014\Game Tech 2014\nclgl\nclgl.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.06
