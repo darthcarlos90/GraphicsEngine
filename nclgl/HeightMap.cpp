@@ -22,6 +22,7 @@ HeightMap::HeightMap(std::string name){
 			int offset = (x * RAW_WIDTH) + z;
 
 			vertices[offset] = Vector3(x * HEIGHTMAP_X, data[offset] * HEIGHTMAP_Y, z * HEIGHTMAP_Z);
+			vertex_vector.push_back(vertices[offset]);
 
 			textureCoords[offset] = Vector2(x * HEIGHTMAP_TEX_X, z * HEIGHTMAP_TEX_Z);
 		}
@@ -48,7 +49,7 @@ HeightMap::HeightMap(std::string name){
 		}
 	}
 
-	type = GL_LINES;
+	//type = GL_LINES;
 	GenerateNormals();//Added on tutorial 11
 
 	GenerateTangents(); //Added on tutorial 12

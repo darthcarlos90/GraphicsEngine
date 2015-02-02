@@ -71,7 +71,14 @@ public:
 
 	GLuint getNumVertices(){ return numVertices; }
 
-	Vector3 getVertexAt(int index){ return vertices[index]; }
+
+
+	Vector3 getVertexAt(unsigned int index){ 
+		return vertex_vector[index];
+	}
+	Vector3 getNormalAt(unsigned int index){
+		return normal_vector[index];
+	}
 
 protected:
 	//Buffers all VBO data into graphics memory. Required before drawing!
@@ -114,6 +121,7 @@ protected:
 
 	//Pointer to vertex position attribute data (badly named...?)
 	Vector3*		vertices;
+	
 	//Pointer to vertex colour attribute data
 	Vector4*		colours;
 	//Pointer to vertex texture coordinate attribute data
@@ -127,5 +135,9 @@ protected:
 
 
 	bool			transformCoords;
+
+	vector <Vector3> vertex_vector;
+	vector <Vector3> normal_vector;
+	
 };
 

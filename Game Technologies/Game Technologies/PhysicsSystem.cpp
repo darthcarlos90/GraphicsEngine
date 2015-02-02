@@ -18,7 +18,7 @@ PhysicsSystem::PhysicsSystem(void)	{
 }
 
 PhysicsSystem::~PhysicsSystem(void)	{
-	for (int i = 0; i < allSprings.size(); i++) {
+	for (unsigned int i = 0; i < allSprings.size(); i++) {
 		delete allSprings[i];
 	}
 	delete root;
@@ -33,7 +33,7 @@ void	PhysicsSystem::Update(float msec) {
 	for(vector<Constraint*>::iterator i = allSprings.begin(); i != allSprings.end(); ++i) {
 		(*i)->Update(msec);
 	}
-	for(int i = 0; i < allNodes.size(); i++) {
+	for(unsigned int i = 0; i < allNodes.size(); i++) {
 		allNodes[i]->Update(msec);
 	}
 }
@@ -98,20 +98,31 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 					if(!allNodes[i]->isTree()){
 						//NEW CHANGES!!!!!
 						//First, get the radius of the element.
-						float radius = allNodes[i]->GetCollisionSphere.GetCollisionSphereRadius();
+						float radius = allNodes[i]->GetCollisionSphere().m_radius;
 						Vector3 location = allNodes[i]->GetPosition();
 						//Now, we are going to check which vertices are inside the area created by the radius
 						Mesh hm = *allNodes[planeLocation]->getTarget()->GetMesh();
-						vector <Vector3> insideVertices;
+						vector <int> insideVertices;
+						
 						for (unsigned int verts = 0; verts < hm.getNumVertices(); verts++){
 							Vector3 temp = hm.getVertexAt(verts);
 							if (temp.x >= location.x - radius || temp.x <= location.x + radius){
 								if (temp.z >= location.z - radius || temp.z <= location.z + radius){
-									insideVertices.push_back(temp);
+									insideVertices.push_back(verts);
 								}
 							}
 						}
+						//Now, we are going to get the normals of those elements
+						vector <Vector3> normals;
+						for(unsigned int index = 0; index < insideVertices.size(); index++){
+							normals.push_back(hm.getNormalAt(insideVertices[index]));
+						}
 
+						//Now that we've got the normals, we interpolate them into one single normal
+						// ... but first, lets draw some debug points on those normals
+						for(unsigned int index = 0; index < normals.size(); index++){
+							Renderer::DrawDebugCross(DEBUGDRAW_PERSPECTIVE, normals[index], Vector3(50,50,50));
+						}
 
 
 						if(CollisionHelper::SpherePlaneCollision(*allNodes[i], *allNodes[planeLocation], &colDat)){

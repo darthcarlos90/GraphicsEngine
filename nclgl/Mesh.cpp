@@ -68,6 +68,7 @@ Mesh* Mesh::GenerateTriangle()	{
 	m->vertices[0] = Vector3(0.0f,	0.5f,	0.0f);
 	m->vertices[1] = Vector3(0.5f,  -0.5f,	0.0f);
 	m->vertices[2] = Vector3(-0.5f, -0.5f,	0.0f);
+	
 
 	m->textureCoords = new Vector2[m->numVertices];
 	m->textureCoords[0] = Vector2(0.5f,	0.0f);
@@ -105,6 +106,7 @@ Mesh* Mesh::GenerateQuad()	{
 	m->vertices[1] = 	Vector3(-1.0f,	1.0f, 0.0f);
 	m->vertices[2] = 	Vector3(1.0f, -1.0f, 0.0f);
 	m->vertices[3] = 	Vector3(1.0f,  1.0f, 0.0f);
+	
 
 	m->textureCoords[0] = Vector2(0.0f,	1.0f);
 	m->textureCoords[1] = Vector2(0.0f,	0.0f);
@@ -139,6 +141,7 @@ Mesh* Mesh::GenerateQuadAlt()	{
 	m->vertices[1] = 	Vector3(0.0f, 1.0f, 0.0f);
 	m->vertices[2] = 	Vector3(1.0f, 0.0f, 0.0f);
 	m->vertices[3] = 	Vector3(1.0f,  1.0f, 0.0f);
+	
 
 	m->textureCoords[0] = Vector2(0.0f,	0.0f);
 	m->textureCoords[1] = Vector2(0.0f,	1.0f);
@@ -257,6 +260,7 @@ void	Mesh::GenerateNormals()	{
 	}
 	for(GLuint i = 0; i < numVertices; ++i){
 		normals[i] = Vector3();
+		normal_vector.push_back(Vector3());
 	}
 
 	if(indices) {
@@ -273,6 +277,9 @@ void	Mesh::GenerateNormals()	{
 			normals[a] += normal;
 			normals[b] += normal;
 			normals[c] += normal;
+			normal_vector[a] += normal;
+			normal_vector[b] += normal;
+			normal_vector[c] += normal;
 
 			test+=3;
 		}
@@ -290,11 +297,15 @@ void	Mesh::GenerateNormals()	{
 			normals[i]	 = normal;
 			normals[i+1] = normal;
 			normals[i+2] = normal;
+			normal_vector[i] = normal;
+			normal_vector[i+1] = normal;
+			normal_vector[i + 2] = normal;
 		}
 	}
 
 	for(GLuint i = 0; i < numVertices; ++i){
 		normals[i].Normalise();
+		normal_vector[i].Normalise();
 	}
 }
 
@@ -460,3 +471,4 @@ void Mesh::DrawDebugTangents(float length)	{
 	//	children.at(i)->DrawDebugTangents();
 	//}
 }
+

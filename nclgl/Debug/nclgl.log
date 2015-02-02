@@ -1,33 +1,25 @@
-﻿Build started 02/02/2015 10:46:27.
+﻿Build started 02/02/2015 16:36:13.
      1>Project "C:\Users\cmdadmin\Documents\PhysicsEngineTests\PhysicsEngine\nclgl\nclgl.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp CubeRobot.cpp Frustum.cpp GameTimer.cpp HeightMap.cpp Keyboard.cpp Matrix3.cpp Matrix4.cpp MD5Anim.cpp MD5FileData.cpp MD5Mesh.cpp MD5Node.cpp Mesh.cpp Mouse.cpp OBJMesh.cpp OGLRenderer.cpp Plane.cpp Quaternion.cpp SceneNode.cpp Shader.cpp Window.cpp
-         Window.cpp
-         Shader.cpp
-         SceneNode.cpp
-     1>c:\users\cmdadmin\documents\physicsenginetests\physicsengine\nclgl\scenenode.cpp(76): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\cmdadmin\documents\physicsenginetests\physicsengine\nclgl\scenenode.cpp(83): warning C4018: '<' : signed/unsigned mismatch
-         Quaternion.cpp
-         Plane.cpp
-         OGLRenderer.cpp
-         OBJMesh.cpp
-         Mouse.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp CubeRobot.cpp Frustum.cpp HeightMap.cpp MD5Anim.cpp MD5FileData.cpp MD5Mesh.cpp MD5Node.cpp Mesh.cpp OBJMesh.cpp OGLRenderer.cpp SceneNode.cpp Shader.cpp Window.cpp
          Mesh.cpp
+         HeightMap.cpp
+         Generating Code...
+         Compiling...
+         OBJMesh.cpp
          MD5Node.cpp
          MD5Mesh.cpp
          MD5FileData.cpp
          MD5Anim.cpp
-         Matrix4.cpp
-         Matrix3.cpp
-         Keyboard.cpp
-         HeightMap.cpp
-         GameTimer.cpp
-         Frustum.cpp
          CubeRobot.cpp
          Generating Code...
-         Compiling...
+         Skipping... (no relevant changes detected)
+         Window.cpp
+         Shader.cpp
+         SceneNode.cpp
+         OGLRenderer.cpp
+         Frustum.cpp
          Camera.cpp
-         Generating Code...
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\cmdadmin\Documents\PhysicsEngineTests\PhysicsEngine\Game Technologies\Debug\nclgl.lib" /NOLOGO Debug\Camera.obj
          Debug\CubeRobot.obj
@@ -55,4 +47,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.77
+Time Elapsed 00:00:04.75
