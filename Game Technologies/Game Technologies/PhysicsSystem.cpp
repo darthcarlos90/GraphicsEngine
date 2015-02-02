@@ -110,8 +110,8 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 									insideVertices.push_back(temp);
 								}
 							}
-
 						}
+
 
 
 						if(CollisionHelper::SpherePlaneCollision(*allNodes[i], *allNodes[planeLocation], &colDat)){
