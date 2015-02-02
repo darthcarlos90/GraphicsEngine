@@ -41,6 +41,32 @@ Mesh::~Mesh(void)	{
 	delete[]colours;
 }
 
+Mesh::Mesh(Mesh &m){
+	//Left here
+	vertices = new Vector3[m.numVertices];
+	for (unsigned int i = 0; i < m.numVertices; i++){
+		vertices[i] = m.vertices[i];
+	}
+	indices = m.indices;
+	textureCoords = m.textureCoords;
+	tangents = m.tangents;
+	normals = m.normals;
+	colours = m.colours;
+	numVertices = m.numVertices;
+	numIndices = m.numIndices;
+	arrayObject = m.arrayObject;
+	for (unsigned int i = 0; i < MAX_BUFFER; i++){
+		bufferObject[i] = m.bufferObject[i];
+	}
+
+	numVertices = m.numVertices;
+	type = m.type;
+	texture = m.texture;
+	bumpTexture = m.bumpTexture;
+	transformCoords = m.transformCoords;
+
+}
+
 void Mesh::Draw(bool update)	{
 	if(update) {
 		glActiveTexture(GL_TEXTURE0);
@@ -260,7 +286,7 @@ void	Mesh::GenerateNormals()	{
 	}
 	for(GLuint i = 0; i < numVertices; ++i){
 		normals[i] = Vector3();
-		normal_vector.push_back(Vector3());
+		
 	}
 
 	if(indices) {
@@ -277,10 +303,7 @@ void	Mesh::GenerateNormals()	{
 			normals[a] += normal;
 			normals[b] += normal;
 			normals[c] += normal;
-			normal_vector[a] += normal;
-			normal_vector[b] += normal;
-			normal_vector[c] += normal;
-
+			
 			test+=3;
 		}
 		bool asdf = true;
@@ -297,15 +320,13 @@ void	Mesh::GenerateNormals()	{
 			normals[i]	 = normal;
 			normals[i+1] = normal;
 			normals[i+2] = normal;
-			normal_vector[i] = normal;
-			normal_vector[i+1] = normal;
-			normal_vector[i + 2] = normal;
+			
 		}
 	}
 
 	for(GLuint i = 0; i < numVertices; ++i){
 		normals[i].Normalise();
-		normal_vector[i].Normalise();
+		
 	}
 }
 

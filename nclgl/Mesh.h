@@ -38,6 +38,7 @@ public:
 	friend class MD5Mesh;
 	Mesh(void);
 	virtual ~Mesh(void);
+	Mesh(Mesh &m); //Copy constructor
 
 	virtual void Draw(bool update = true);
 
@@ -74,16 +75,16 @@ public:
 
 
 	Vector3 getVertexAt(unsigned int index){ 
-		return vertex_vector[index];
+		return vertices[index];
 	}
 	Vector3 getNormalAt(unsigned int index){
-		return normal_vector[index];
+		return normals[index];
 	}
 
 protected:
 	//Buffers all VBO data into graphics memory. Required before drawing!
 	void	BufferData();
-
+	
 
 	//Generates normals for all facets. Assumes geometry type is GL_TRIANGLES...
 	void	GenerateNormals();
@@ -128,16 +129,12 @@ protected:
 	Vector2*		textureCoords;
 	//Pointer to vertex normals attribute data
 	Vector3*		normals;
+	
 	//Pointer to vertex tangents attribute data
 	Vector3*		tangents;
 	//Pointer to vertex indices attribute data
 	unsigned int*	indices;
 
 
-	bool			transformCoords;
-
-	vector <Vector3> vertex_vector;
-	vector <Vector3> normal_vector;
-	
+	bool			transformCoords;	
 };
-

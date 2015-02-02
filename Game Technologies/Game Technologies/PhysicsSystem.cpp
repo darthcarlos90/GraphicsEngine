@@ -106,8 +106,8 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 						
 						for (unsigned int verts = 0; verts < hm.getNumVertices(); verts++){
 							Vector3 temp = hm.getVertexAt(verts);
-							if (temp.x >= location.x - radius || temp.x <= location.x + radius){
-								if (temp.z >= location.z - radius || temp.z <= location.z + radius){
+							if (temp.x >= location.x - radius && temp.x <= location.x + radius){
+								if (temp.z >= location.z - radius && temp.z <= location.z + radius){
 									insideVertices.push_back(verts);
 								}
 							}
