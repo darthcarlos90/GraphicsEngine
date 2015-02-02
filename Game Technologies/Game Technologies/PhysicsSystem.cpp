@@ -98,6 +98,7 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 					if(!allNodes[i]->isTree()){
 						//NEW CHANGES!!!!!
 						//First, get the radius of the element.
+						//TEST!!!! TEST!!!!
 						float radius = allNodes[i]->GetCollisionSphere.GetCollisionSphereRadius();
 						Vector3 location = allNodes[i]->GetPosition();
 						//Now, we are going to check which vertices are inside the area created by the radius
