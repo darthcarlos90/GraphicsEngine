@@ -1,25 +1,8 @@
-﻿Build started 02/02/2015 16:36:13.
+﻿Build started 03/02/2015 17:45:53.
      1>Project "C:\Users\cmdadmin\Documents\PhysicsEngineTests\PhysicsEngine\nclgl\nclgl.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp CubeRobot.cpp Frustum.cpp HeightMap.cpp MD5Anim.cpp MD5FileData.cpp MD5Mesh.cpp MD5Node.cpp Mesh.cpp OBJMesh.cpp OGLRenderer.cpp SceneNode.cpp Shader.cpp Window.cpp
-         Mesh.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt HeightMap.cpp
          HeightMap.cpp
-         Generating Code...
-         Compiling...
-         OBJMesh.cpp
-         MD5Node.cpp
-         MD5Mesh.cpp
-         MD5FileData.cpp
-         MD5Anim.cpp
-         CubeRobot.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         Window.cpp
-         Shader.cpp
-         SceneNode.cpp
-         OGLRenderer.cpp
-         Frustum.cpp
-         Camera.cpp
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\cmdadmin\Documents\PhysicsEngineTests\PhysicsEngine\Game Technologies\Debug\nclgl.lib" /NOLOGO Debug\Camera.obj
          Debug\CubeRobot.obj
@@ -47,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.75
+Time Elapsed 00:00:00.76

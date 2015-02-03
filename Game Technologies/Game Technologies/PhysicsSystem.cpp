@@ -5,6 +5,7 @@
 
 
 
+
 PhysicsSystem* PhysicsSystem::instance = 0;
 
 //12.0f
@@ -35,6 +36,11 @@ void	PhysicsSystem::Update(float msec) {
 	}
 	for(unsigned int i = 0; i < allNodes.size(); i++) {
 		allNodes[i]->Update(msec);
+	}
+
+	
+	for(unsigned int i = 0; i < debug_positions.size(); i++){
+		Renderer::DrawDebugCross(DEBUGDRAW_PERSPECTIVE, debug_positions[i], Vector3(50,50,50));
 	}
 }
 
@@ -95,50 +101,18 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 				//if(InsideConcaveShape(points, 4, allNodes[i]->GetPosition())){
 					CollisionData colDat;
 					//and if it is not a tree
-					if(!allNodes[i]->isTree()){
-						//NEW CHANGES!!!!!
-						//First, get the radius of the element.
-						float radius = allNodes[i]->GetCollisionSphereRadius();
-						Vector3 location = allNodes[i]->GetPosition();
-						//Now, we are going to check which vertices are inside the area created by the radius
-					
-						vector <int> insideVertices;
-						Vector3 averageLocation;
-						int limit = allNodes[planeLocation]->getTarget()->GetMesh()->getNumVertices();
-						for (unsigned int verts = 0; verts < limit; verts++){
-							Vector3 temp = allNodes[planeLocation]->getTarget()->GetMesh()->getVertexAt(verts);
-							if (temp.x >= location.x - radius && temp.x <= location.x + radius){
-								if (temp.z >= location.z - radius && temp.z <= location.z + radius){
-									insideVertices.push_back(verts);
-									averageLocation += temp;
-								}
-							}
-						}
-						averageLocation = Vector3((averageLocation.x / (float)insideVertices.size()), (averageLocation.y / (float)insideVertices.size()), (averageLocation.z / (float)insideVertices.size()));
-						float length = averageLocation.Length();
-						//Now, we are going to get the normals of those elements
-						vector <Vector3> plane_normals;
-						for(unsigned int index = 0; index < insideVertices.size(); index++){
-							plane_normals.push_back(allNodes[planeLocation]->getTarget()->GetMesh()->getNormalAt(insideVertices[index]));
-						}
+					if(!allNodes[i]->isTree()){	
 
-						//Now that we've got the normals, we interpolate them into one single normal
-						Vector3 final_normal;
-						for (unsigned int index = 0; index < plane_normals.size(); index++){
-							final_normal += plane_normals[index];
+						if(CollisionHelper::HighMapCollision(*allNodes[i], allNodes[planeLocation]->getTarget()->GetMesh()->GetVertices(), allNodes[planeLocation]->getTarget()->GetMesh()->getNumVertices())){
+							allNodes[i]->Stop();
 						}
-						//We normalize the result and weve got a normal for that piece of plane
-						final_normal.Normalise();
-						//Now, we treat that as a plane, create one, and check for collitions
-						Plane plane(final_normal, length);
-						
-						
-						if(CollisionHelper::SpherePlaneCollision(*allNodes[i],plane/* *allNodes[planeLocation]*/, &colDat)){
+						if(CollisionHelper::SpherePlaneCollision(*allNodes[i],*allNodes[planeLocation], &colDat)){
 							if(allNodes[i]->getGreanade()){
 								allNodes[i]->setBroken(true);
 							}else if(!allNodes[i]->isRest()){
-								//CollisionHelper::AddCollisionImpulse(*allNodes[i], *allNodes[planeLocation], colDat);
-								allNodes[i]->Stop();
+								CollisionHelper::AddCollisionImpulse(*allNodes[i], *allNodes[planeLocation], colDat);
+								//allNodes[i]->Stop();
+								
 							} else {
 								//if the element is at rest, continue at rest
 								allNodes[i]->putRest(true);
