@@ -44,6 +44,24 @@ bool CollisionHelper::SpherePlaneCollision(PhysicsNode &p0, PhysicsNode &p1, Col
 
 	return true;
 }
+bool CollisionHelper::SpherePlaneCollision(PhysicsNode &p0, Plane& plane, CollisionData* data){
+	CollisionSphere s0 = p0.GetCollisionSphere();
+
+
+	float separation = Vector3::Dot(p0.GetPosition(), plane.GetNormal()) - plane.GetDistance();
+
+	if (separation > s0.m_radius){
+		return false;
+	}
+
+	if (data){
+		data->m_penetration = s0.m_radius - separation;
+		data->m_normal = plane.GetNormal();
+		data->m_point = p0.GetPosition() - plane.GetNormal() * separation;
+	}
+
+	return true;
+}
 
 void CollisionHelper::AddCollisionImpulse(PhysicsNode& p0, PhysicsNode& p1, CollisionData& data){
 	if(p0.GetInverseMass() + p1.GetInverseMass() == 0.0f) return;

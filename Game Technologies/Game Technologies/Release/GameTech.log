@@ -1,29 +1,10 @@
-﻿Build started 02/02/2015 11:03:02 p. m..
+﻿Build started 03/02/2015 12:32:49 p. m..
      1>Project "C:\Users\Carlos\Documents\Masters\Game Technologies\Game Tech 2014 Coursework\Game Tech 2014\Game Technologies\Game Technologies\GameTech.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Branch.cpp CollisionHelper.cpp GameClass.cpp GameEntity.cpp IntelligentEntity.cpp Main.cpp MyGame.cpp OctTreeNode.cpp PhysicsNode.cpp PhysicsSystem.cpp Renderer.cpp Sphere.cpp Spring.cpp SpringDemo.cpp TextMesh.cpp Tree.cpp
-         Branch.cpp
-         CollisionHelper.cpp
-         GameClass.cpp
-         GameEntity.cpp
-         IntelligentEntity.cpp
-         Main.cpp
-         MyGame.cpp
-         OctTreeNode.cpp
-     1>OctTreeNode.cpp(72): warning C4018: '>' : signed/unsigned mismatch
-     1>OctTreeNode.cpp(132): warning C4018: '<' : signed/unsigned mismatch
-         PhysicsNode.cpp
-     1>PhysicsNode.cpp(6): warning C4305: 'argument' : truncation from 'double' to 'const float'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt PhysicsSystem.cpp
          PhysicsSystem.cpp
      1>PhysicsSystem.cpp(17): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-         Renderer.cpp
-         Sphere.cpp
-         Spring.cpp
-         SpringDemo.cpp
-     1>SpringDemo.cpp(6): warning C4305: 'argument' : truncation from 'double' to 'const float'
-     1>SpringDemo.cpp(8): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-         TextMesh.cpp
-         Tree.cpp
+     1>PhysicsSystem.cpp(108): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Carlos\Documents\Masters\Game Technologies\Game Tech 2014 Coursework\Game Tech 2014\Game Technologies\Release\GameTech.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Carlos\Documents\Masters\Game Technologies\Game Tech 2014 Coursework\Game Tech 2014\Game Technologies\Release\GameTech.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Carlos\Documents\Masters\Game Technologies\Game Tech 2014 Coursework\Game Tech 2014\Game Technologies\Release\GameTech.lib" /MACHINE:X86 /SAFESEH Release\Branch.obj
          Release\CollisionHelper.obj
@@ -60,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:14.20
+Time Elapsed 00:00:04.08

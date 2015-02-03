@@ -41,31 +41,6 @@ Mesh::~Mesh(void)	{
 	delete[]colours;
 }
 
-Mesh::Mesh(Mesh &m){
-	//Left here
-	vertices = new Vector3[m.numVertices];
-	for (unsigned int i = 0; i < m.numVertices; i++){
-		vertices[i] = m.vertices[i];
-	}
-	indices = m.indices;
-	textureCoords = m.textureCoords;
-	tangents = m.tangents;
-	normals = m.normals;
-	colours = m.colours;
-	numVertices = m.numVertices;
-	numIndices = m.numIndices;
-	arrayObject = m.arrayObject;
-	for (unsigned int i = 0; i < MAX_BUFFER; i++){
-		bufferObject[i] = m.bufferObject[i];
-	}
-
-	numVertices = m.numVertices;
-	type = m.type;
-	texture = m.texture;
-	bumpTexture = m.bumpTexture;
-	transformCoords = m.transformCoords;
-
-}
 
 void Mesh::Draw(bool update)	{
 	if(update) {

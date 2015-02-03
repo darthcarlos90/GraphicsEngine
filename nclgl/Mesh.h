@@ -38,7 +38,6 @@ public:
 	friend class MD5Mesh;
 	Mesh(void);
 	virtual ~Mesh(void);
-	Mesh(Mesh &m); //Copy constructor
 
 	virtual void Draw(bool update = true);
 
