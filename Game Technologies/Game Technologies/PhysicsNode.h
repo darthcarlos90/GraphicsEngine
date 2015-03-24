@@ -104,6 +104,7 @@ public:
 	void SetAngularMotion() {angularMotion = true;}
 
 	void ExplicitEuler(Vector3 acceleration, float msec);
+	void SemiImplicitEuler(Vector3 acceleration, float msec);
 	void VerletIntegration(Vector3 acceleration, float msec);
 	Vector3 calculateAcceleration ();
 

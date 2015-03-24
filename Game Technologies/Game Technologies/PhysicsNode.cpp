@@ -115,7 +115,8 @@ void	PhysicsNode::Update(float msec) {
 	//FUN GOES HERE
 	
 		if(linearMotion){
-			ExplicitEuler(calculateAcceleration(), msec);
+			SemiImplicitEuler(calculateAcceleration(), msec);
+			//ExplicitEuler(calculateAcceleration(), msec);
 		}
 
 		if(angularMotion){
@@ -163,6 +164,28 @@ Matrix4		PhysicsNode::BuildTransform() {
 	Matrix4 m = m_orientation.ToMatrix();
 	m.SetPositionVector(m_position);
 	return m;
+}
+
+void PhysicsNode::SemiImplicitEuler(Vector3 acceleration, float msec){
+	m_linearVelocity = m_linearVelocity + acceleration * msec;
+	//why dis?
+	if (m_type == CUBE){
+		if (m_linearVelocity.x < 0.001f ||
+			m_linearVelocity.y < 0.001f ||
+			m_linearVelocity.z < 0.001f){
+			m_linearVelocity = Vector3();
+		}
+	}
+
+	if (abs(m_linearVelocity.x) < 0.001f)
+		m_linearVelocity.x = 0.0f;
+	if (abs(m_linearVelocity.y) < 0.001f)
+		m_linearVelocity.y = 0.0f;
+	if (abs(m_linearVelocity.z) < 0.001f)
+		m_linearVelocity.z = 0.0f;
+
+	m_position = m_position + m_linearVelocity * msec;
+
 }
 
 void PhysicsNode::ExplicitEuler(Vector3 acceleration, float msec){
