@@ -153,7 +153,7 @@ protected:
 	int element_number;
 	vector<Constraint*> allSprings;
 	vector<DebugDrawer*> allDebug;
-	
+	vector <Vector3> debug_positions;
 	
 	
 };

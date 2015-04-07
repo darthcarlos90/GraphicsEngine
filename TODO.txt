@@ -1,0 +1,9 @@
+Things to do :
+- Merge this sh*t
+- Make everything work again :(
+- Fix the f*cking culling
+- Add heightmap collision detection
+- Improve the octree?
+- Fix the tree growing, you know, when it vibrates by some reason.
+- Fix the springs
+- Add CUDA or GPU stuff

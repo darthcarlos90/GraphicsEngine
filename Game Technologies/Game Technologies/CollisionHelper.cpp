@@ -44,11 +44,13 @@ bool CollisionHelper::SpherePlaneCollision(PhysicsNode &p0, PhysicsNode &p1, Col
 
 	return true;
 }
-bool CollisionHelper::SpherePlaneCollision(PhysicsNode &p0, Plane& plane, CollisionData* data){
+bool CollisionHelper::SpherePlaneCollision(PhysicsNode &p0, PhysicsNode&p1, Vector3& position, CollisionData* data){
 	CollisionSphere s0 = p0.GetCollisionSphere();
+	Plane plane = *p1.getPlane();
+	float distance = position.Length();
 
-
-	float separation = Vector3::Dot(p0.GetPosition(), plane.GetNormal()) - plane.GetDistance();
+	//float separation = Vector3::Dot(p0.GetPosition(), plane.GetNormal()) - plane.GetDistance();
+	float separation = Vector3::Dot(p0.GetPosition(), plane.GetNormal()) - distance;
 
 	if (separation > s0.m_radius){
 		return false;
@@ -122,4 +124,64 @@ void CollisionHelper::AddCollisionImpulse(PhysicsNode& p0, PhysicsNode& p1, Coll
 		Vector3 a1 = p1.GetAngularVelocity() - p1.getInvInertia() * Vector3::Cross(r1, tangent * jt);
 		p1.SetAngularVelocity(a1);
 	}
+}
+
+bool CollisionHelper::HighMapCollision(PhysicsNode&p0, Vector3* hm_vertices, int numVertices, CollisionData* data){
+	CollisionSphere& sphere = p0.GetCollisionSphere();
+	Vector3 sphereP = p0.GetPosition();
+
+	Vector3 pos = sphere.m_pos; 
+		//hash the position to find heightmap indices relevant to collision
+		int x = (int)(pos.x / 16.0f);
+		int z = (int)(pos.z / 16.0f);
+		int ind0 = x * 257 + z;
+		//int ind1 = (x + 1) * 257 + z;
+		int ind2 = x * 257 + (z + 1);
+		int ind3 = (x + 1) * 257 + (z + 1);
+		if (ind2 % 257 == 0 && ind3 % 257 == 0) return false;
+		if (ind0 > 0 && ind0 < 256 * 256 && ind2 > 0 && ind3 > 0 && ind2 < 256 * 256 && ind3 < 256 * 256) {
+			//sanity check passed, get the points near and form a triangle
+			Vector3 hpos = hm_vertices[ind0];
+			//Vector3 hpos1 = hm_vertices[ind1];
+			Vector3 hpos2 = hm_vertices[ind2];
+			Vector3 hpos3 = hm_vertices[ind3];
+
+			float height = 0.0f;
+			float sqx = (pos.x / 16.0f) - x;
+			float sqz = (pos.z / 16.0f) - z;
+
+			if((sqx + sqz) < 1){
+				height = hpos.y;
+				//height += (hpos1.y - hpos.y) * sqx;
+				height += (hpos2.y - hpos.y) * sqz;
+			} else {
+				height = hpos3.y;
+				//height += (hpos1.y - hpos3.y) * (1.0f - sqz);
+				height += (hpos2.y - hpos3.y) * (1.0f - sqx);
+			}
+
+			Renderer::DrawDebugCross(DEBUGDRAW_PERSPECTIVE, Vector3(hpos.x, height, hpos.z), Vector3(50,50,50));
+
+			if(sphereP.y - sphere.m_radius <= height){
+				return true;
+			} 
+			
+			//use triangle data to plug into plane equation
+			Vector3 n = Vector3::Cross(hpos2 - hpos, hpos3 - hpos);
+			n.Normalise();
+			float d = Vector3::Dot(hpos, n);
+			
+			//and do plane sphere intersection/response!
+			float sep = Vector3::Dot(sphereP, n) - d;
+			if (sep < sphere.m_radius) {
+				p0.SetPosition(p0.GetPosition() + (n * (sphere.m_radius - sep)));
+				float vn = Vector3::Dot(p0.GetLinearVelocity(), n);
+				float impulse = (-(1.0f + 0.5f) * vn) / (Vector3::Dot(n, n * p0.GetInverseMass()));
+				p0.SetLinearVelocity(p0.GetLinearVelocity() + (n * impulse * p0.GetInverseMass()));
+				
+		}
+	}
+
+		return false;
+	
 }
