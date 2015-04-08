@@ -185,3 +185,79 @@ bool CollisionHelper::HighMapCollision(PhysicsNode&p0, Vector3* hm_vertices, int
 		return false;
 	
 }
+
+void CollisionHelper::HeightMapCollision(Vector3* v, Vector3* normals, PhysicsNode& p) {
+	CollisionSphere& sphere = p.GetCollisionSphere();
+	Vector3 sphereP = p.GetPosition();
+	//are we within the heightmap?
+	if ((sphereP.x > 0 && sphereP.z > 0) && (sphereP.x < (RAW_WIDTH * 16.0f)) && (sphereP.z < (RAW_WIDTH * 16.0f)) && sphereP.y < 600) {
+		Vector3 pos = sphere.m_pos;
+		pos.y -= sphere.m_radius;
+		//hash the position to find heightmap indices relevant to collision
+		int x = (int)(pos.x / 16.0f);
+		int z = (int)(pos.z / 16.0f);
+		int ind0 = x * 257 + z;
+		int ind1 = (x + 1) * 257 + z;
+		int ind2 = x * 257 + (z + 1);
+		int ind3 = (x + 1) * 257 + (z + 1);
+		if (ind2 % 257 == 0 && ind3 % 257 == 0) return;
+		if (ind0 > 0 && ind0 < 256 * 256 && ind2 > 0 && ind3 > 0 && ind2 < 256 * 256 && ind3 < 256 * 256) {
+			//sanity check passed, get the points near and form a triangle
+			Vector3 hpos = v[ind0];
+			Vector3 hpos1 = v[ind1];
+			Vector3 hpos2 = v[ind2];
+			Vector3 hpos3 = v[ind3];
+
+			Vector3 n0 = normals[ind0];
+			Vector3 n1 = normals[ind1];
+			Vector3 n2 = normals[ind2];
+			Vector3 n3 = normals[ind3];
+
+			float height = 0.0f;
+			float sqx = (pos.x / 16.0f) - x;
+			float sqz = (pos.z / 16.0f) - z;
+
+
+			Vector3 n;
+			float d;
+			if ((sqx + sqz) < 1){
+				height = hpos.y;
+				height += (hpos1.y - hpos.y) * sqx;
+				height += (hpos2.y - hpos.y) * sqz;
+				n = n0;
+				n += (n1 - n0) * sqx;
+				n += (n2 - n0) * sqz;
+				d = Vector3::Dot(hpos, n);
+
+			}
+			else {
+				height = hpos3.y;
+				height += (hpos1.y - hpos3.y) * (1.0f - sqz);
+				height += (hpos2.y - hpos3.y) * (1.0f - sqx);
+				n = n3;
+				n += (n1 - n0) * (1.0f - sqz);
+				n += (n2 - n3) * (1.0f - sqx);
+				d = Vector3::Dot(hpos3, n);
+			}
+
+			//Used for debugging the heights of the heightmap vs the position of the ball
+			//Renderer::DrawDebugCross(DEBUGDRAW_PERSPECTIVE, Vector3(sphereP.x, height, sphereP.z), Vector3(50,50,50));
+
+
+			n.Normalise();
+			float sep = Vector3::Dot(sphereP, n) - d;
+
+			if (sphereP.y <= height || sep < sphere.m_radius){
+				p.SetPosition(p.GetPosition() + (n * (sphere.m_radius - sep)));
+				float vn = Vector3::Dot(p.GetLinearVelocity(), n);
+				float impulse = (-(1.0f + 0.5f) * vn) / (Vector3::Dot(n, n * p.GetInverseMass()));
+				p.SetLinearVelocity(p.GetLinearVelocity() + (n * impulse * p.GetInverseMass()));
+				
+			}
+
+
+		}
+	}
+
+
+}

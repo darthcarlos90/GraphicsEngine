@@ -11,4 +11,6 @@ public:
 	static bool HighMapCollision(PhysicsNode&p0, Vector3* hm_vertices, int numVertices, CollisionData* data = NULL);
 
 	static void AddCollisionImpulse (PhysicsNode& p0, PhysicsNode& p1, CollisionData& data);
+
+	static void HeightMapCollision(Vector3* v, Vector3* normals, PhysicsNode& p);
 };

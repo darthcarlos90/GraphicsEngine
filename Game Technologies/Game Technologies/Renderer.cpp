@@ -118,14 +118,14 @@ void	Renderer::BuildNodeLists(SceneNode* from)	{
 	Vector3 direction = from->GetWorldTransform().GetPositionVector() - camera->GetPosition();
 	from->SetCameraDistance(Vector3::Dot(direction,direction));
 
-	if(frameFrustum.InsideFrustum(*from)) {
+	//if(frameFrustum.InsideFrustum(*from)) {
 		if(from->GetColour().w < 1.0f) {
 			transparentNodeList.push_back(from);
 		}
 		else{
 			nodeList.push_back(from);
 		}
-	}
+	//}
 
 	for(vector<SceneNode*>::const_iterator i = from->GetChildIteratorStart(); i != from->GetChildIteratorEnd(); ++i) {
 		BuildNodeLists((*i));

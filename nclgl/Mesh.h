@@ -84,6 +84,8 @@ public:
 		return vertices;
 	}
 
+	Vector3* GetNormals() { return normals; }
+
 protected:
 	//Buffers all VBO data into graphics memory. Required before drawing!
 	void	BufferData();

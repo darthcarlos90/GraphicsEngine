@@ -1,4 +1,4 @@
-﻿Build started 07/04/2015 11:24:33 p. m..
+﻿Build started 08/04/2015 08:46:32 p. m..
      1>Project "C:\Users\Carlos\Documents\Masters\GameTechnologies\GameTech2014Coursework\GameTech2014\Game Technologies\Game Technologies\GameTech.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Branch.cpp CollisionHelper.cpp GameClass.cpp GameEntity.cpp IntelligentEntity.cpp Main.cpp MyGame.cpp OctTreeNode.cpp PhysicsNode.cpp PhysicsSystem.cpp Renderer.cpp Sphere.cpp Spring.cpp SpringDemo.cpp TextMesh.cpp Tree.cpp
@@ -60,4 +60,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:20.42
+Time Elapsed 00:00:16.71

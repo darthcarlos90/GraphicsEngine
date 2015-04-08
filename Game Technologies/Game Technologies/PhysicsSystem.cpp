@@ -101,11 +101,12 @@ void	PhysicsSystem::NarrowPhaseCollisions() {
 				//if(InsideConcaveShape(points, 4, allNodes[i]->GetPosition())){
 					CollisionData colDat;
 					//and if it is not a tree
-					if(!allNodes[i]->isTree()){	
-
-						if(CollisionHelper::HighMapCollision(*allNodes[i], allNodes[planeLocation]->getTarget()->GetMesh()->GetVertices(), allNodes[planeLocation]->getTarget()->GetMesh()->getNumVertices())){
-							allNodes[i]->Stop();
-						}
+					if (!allNodes[i]->isTree()){
+						CollisionHelper::HeightMapCollision(allNodes[planeLocation]->getTarget()->GetMesh()->GetVertices(), allNodes[planeLocation]->getTarget()->GetMesh()->GetNormals(), *allNodes[i]);
+						
+						//if(CollisionHelper::HighMapCollision(*allNodes[i], allNodes[planeLocation]->getTarget()->GetMesh()->GetVertices(), allNodes[planeLocation]->getTarget()->GetMesh()->getNumVertices())){
+							//allNodes[i]->Stop();
+						//}
 						if(CollisionHelper::SpherePlaneCollision(*allNodes[i],*allNodes[planeLocation], &colDat)){
 							if(allNodes[i]->getGreanade()){
 								allNodes[i]->setBroken(true);
